@@ -5,7 +5,9 @@ declare(strict_types = 1);
 use App\App;
 use App\Config;
 use App\Controllers\HomeController;
+use App\Controllers\GeneratorExampleController;
 use App\Router;
+use App\Container;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -15,13 +17,30 @@ $dotenv->load();
 define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEW_PATH', __DIR__ . '/../views');
 
-$router = new Router();
+$container = new Container();
+$router = new Router($container);
 
 $router
-    ->get('/', [HomeController::class, 'index']);
+    ->get('/', [HomeController::class, 'index'])
+    ->get('/examples/generator', [GeneratorExampleController::class, 'index']);
+$connectionParams = [
+        'dbname' => $_ENV['DB_DATABASE'],
+        'user' => $_ENV['DB_USER'],
+        'password' => $_ENV['DB_PASS'],
+        'host' => $_ENV['DB_HOST'],
+        'driver' => $_ENV['DB_RIVER'] ?? 'pdo_mysql',
+    ];
+$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+$stmt=$conn->prepare('SELECT * FROM sys_config');
+$result = $stmt->executeQuery();
+echo '<pre>';
+var_dump($result->fetchAll()); 
 
+exit;
 (new App(
+    $container,
     $router,
     ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
     new Config($_ENV)
 ))->run();
+

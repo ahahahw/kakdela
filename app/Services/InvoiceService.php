@@ -8,23 +8,27 @@ class InvoiceService
 {
     public function __construct(
         protected SalesTaxService $salesTaxService,
-        protected PaymentGatewayService $gatewayService,
+        protected PaymentGatewayInterface $paymentGateway,
         protected EmailService $emailService
-    ) {
+    )
+    {
+
     }
 
     public function process(array $customer, float $amount): bool
-    {
+    {   
         // 1. calculate sales tax
-        $tax = $this->salesTaxService->calculate($amount, $customer);
+        $tax = $this->salesTaxService->calculate(14,[]);
 
         // 2. process invoice
-        if (! $this->gatewayService->charge($customer, $amount, $tax)) {
+        if (! $this->paymentGateway->charge($customer, $amount, $tax)) {
             return false;
         }
 
         // 3. send receipt
         $this->emailService->send($customer, 'receipt');
+
+        echo 'Invoice has been processed';
 
         return true;
     }

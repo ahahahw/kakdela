@@ -5,14 +5,25 @@ declare(strict_types = 1);
 namespace App;
 
 use App\Exceptions\RouteNotFoundException;
+use App\Container;
+use App\Services\InvoiceService;
+use App\Services\SalesTaxService;
+use App\Services\StripePayment;
+use App\Services\PaymentGatewayInterface;
+use App\Services\EmailService;
+
 
 class App
 {
     private static DB $db;
 
-    public function __construct(protected Router $router, protected array $request, protected Config $config)
+
+    public function __construct(protected Container $container,protected Router $router, protected array $request, protected Config $config)
     {
         static::$db = new DB($config->db ?? []);
+
+        $this->container->set(PaymentGatewayInterface::class,fn(Container $c)=>$c->get(StripePayment::class));
+       
     }
 
     public static function db(): DB
