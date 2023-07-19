@@ -31,12 +31,9 @@ $connectionParams = [
         'driver' => $_ENV['DB_RIVER'] ?? 'pdo_mysql',
     ];
 $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
-$stmt=$conn->prepare('SELECT * FROM sys_config');
+$stmt=$conn->prepare('SELECT * FROM users');
 $result = $stmt->executeQuery();
-echo '<pre>';
-var_dump($result->fetchAll()); 
 
-exit;
 (new App(
     $container,
     $router,
