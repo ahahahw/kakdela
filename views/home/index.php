@@ -12,6 +12,9 @@
     <div style = 'font-size: 400%; color:red'>
          <?=$this->params[0]->latitude?>"<?= $this->params[0]->longitude?> 
     </div>
+    <div style = 'font-size: 400%; color:white'>
+         Мы знаем где ты.
+    </div>
 
 
 </div>

@@ -32,6 +32,7 @@ class HomeController
         $client = HttpClient::create([
             'max_redirects' => 3,
         ]);
+
         $response = $client->request(
             'GET',
             'https://2domains.ru/api/web-tools/geoip?ip='.$user,
@@ -39,7 +40,8 @@ class HomeController
                 'query' => $requestData['query']
             ]
         );
-        
+
+        exit;
         // echo $statusCode = $response->getStatusCode();
         // echo $contentType = $response->getHeaders()['content-type'][0];
 
