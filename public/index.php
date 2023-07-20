@@ -23,16 +23,16 @@ $router = new Router($container);
 $router
     ->get('/', [HomeController::class, 'index'])
     ->get('/examples/generator', [GeneratorExampleController::class, 'index']);
-$connectionParams = [
-        'dbname' => $_ENV['DB_DATABASE'],
-        'user' => $_ENV['DB_USER'],
-        'password' => $_ENV['DB_PASS'],
-        'host' => $_ENV['DB_HOST'],
-        'driver' => $_ENV['DB_RIVER'] ?? 'pdo_mysql',
-    ];
-$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
-$stmt=$conn->prepare('SELECT * FROM users');
-$result = $stmt->executeQuery();
+// $connectionParams = [
+//         'dbname' => $_ENV['DB_DATABASE'],
+//         'user' => $_ENV['DB_USER'],
+//         'password' => $_ENV['DB_PASS'],
+//         'host' => $_ENV['DB_HOST'],
+//         'driver' => $_ENV['DB_RIVER'] ?? 'pdo_mysql',
+//     ];
+// $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+// $stmt=$conn->prepare('SELECT * FROM users');
+// $result = $stmt->executeQuery();
 
 (new App(
     $container,

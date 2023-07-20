@@ -10,11 +10,9 @@
         ТВОИ КООРДИНАТЫ:
     </div>
     <div style = 'font-size: 400%; color:red'>
-        ШИРОТА:<?= $this->params[0]->latitude?>
+         <?=$this->params[0]->latitude?>"<?= $this->params[0]->longitude?> 
     </div>
-    <div style = 'font-size: 400%; color:red'>
-        ДОЛГОТА:<?= $this->params[0]->longitude?> 
-    </div>
+
 
 </div>
 </body>

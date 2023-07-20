@@ -34,7 +34,7 @@ class HomeController
         ]);
         $response = $client->request(
             'GET',
-            'https://2domains.ru/api/web-tools/geoip?ip='.$user,
+            'https://2domains.ru/api/web-tools/geoip?ip='.'185.10.182.216',
             [
                 'query' => $requestData['query']
             ]
