@@ -41,7 +41,7 @@ class HomeController
             ]
         );
 
-        exit;
+
         // echo $statusCode = $response->getStatusCode();
         // echo $contentType = $response->getHeaders()['content-type'][0];
 
